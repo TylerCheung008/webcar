@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoDealer - Quality Used Cars</title>
+    <style>
+        /* 基础样式 */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* 头部样式 */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--box-shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* 英雄区域 */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1549399542-7e3f8b79c341?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: #2980b9;
+        }
+
+        /* 筛选器 */
+        .filters {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin: 2rem auto;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: space-between;
+        }
+
+        .filter-item {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .filter-item label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .filter-item select, .filter-item input {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .filter-btn {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .search-btn {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .reset-btn {
+            background-color: #e0e0e0;
+            color: var(--text-color);
+        }
+
+        /* 车辆列表 */
+        .cars-section {
+            padding: 3rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            color: var(--dark-color);
+        }
+
+        .cars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .car-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .car-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .car-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .car-info {
+            padding: 1.5rem;
+        }
+
+        .car-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        .car-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .car-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .car-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .car-features li {
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .car-features li:before {
+            content: "•";
+            color: var(--secondary-color);
+            margin-right: 0.5rem;
+        }
+
+        .car-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            padding: 0.7rem 1rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid var(--secondary-color);
+            color: var(--secondary-color);
+        }
+
+        /* 页脚 */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: var(--secondary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        /* 模态框 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 2rem auto;
+            border-radius: var(--border-radius);
+            max-width: 800px;
+            width: 90%;
+            position: relative;
+            animation: modalFade 0.3s;
+        }
+
+        @keyframes modalFade {
+            from {opacity: 0; transform: translateY(-20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #777;
+            z-index: 10;
+        }
+
+        .car-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .car-detail-image {
+            width: 100%;
+            border-radius: var(--border-radius) 0 0 var(--border-radius);
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .car-detail-info {
+            padding: 2rem;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-color);
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 0;
+                text-align: center;
+                padding: 0.8rem 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .filter-group {
+                flex-direction: column;
+            }
+
+            .car-detail {
+                grid-template-columns: 1fr;
+            }
+
+            .car-detail-image {
+                border-radius: var(--border-radius) var(--border-radius) 0 0;
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部 -->
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo">Auto<span>Dealer</span></a>
+            <button class="mobile-menu-btn">☰</button>
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Inventory</a></li>
+                <li><a href="#">Financing</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="hero">
+        <div class="container">
+            <h1>Find Your Perfect Used Car</h1>
+            <p>Browse our extensive collection of quality pre-owned vehicles with competitive prices and financing options.</p>
+            <a href="#inventory" class="cta-button">View Inventory</a>
+        </div>
+    </section>
+
+    <!-- 筛选器 -->
+    <div class="container">
+        <div class="filters">
+            <div class="filter-group">
+                <div class="filter-item">
+                    <label for="make">Make</label>
+                    <select id="make">
+                        <option value="">Any Make</option>
+                        <option value="toyota">Toyota</option>
+                        <option value="honda">Honda</option>
+                        <option value="ford">Ford</option>
+                        <option value="bmw">BMW</option>
+                        <option value="mercedes">Mercedes-Benz</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label for="model">Model</label>
+                    <select id="model">
+                        <option value="">Any Model</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label for="price">Max Price</label>
+                    <select id="price">
+                        <option value="">Any Price</option>
+                        <option value="10000">$10,000</option>
+                        <option value="20000">$20,000</option>
+                        <option value="30000">$30,000</option>
+                        <option value="40000">$40,000</option>
+                        <option value="50000">$50,000</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label for="year">Year</label>
+                    <select id="year">
+                        <option value="">Any Year</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                        <option value="2019">2019</option>
+                        <option value="2018">2018</option>
+                    </select>
+                </div>
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn search-btn">Search Vehicles</button>
+                <button class="filter-btn reset-btn">Reset Filters</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 车辆列表 -->
+    <section class="cars-section" id="inventory">
+        <div class="container">
+            <h2 class="section-title">Featured Vehicles</h2>
+            <div class="cars-grid" id="cars-container">
+                <!-- 车辆卡片将通过JavaScript动态生成 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>AutoDealer</h3>
+                    <p>Your trusted partner for quality used vehicles since 2010.</p>
+                    <div class="social-links">
+                        <a href="#"><span>FB</span></a>
+                        <a href="#"><span>TW</span></a>
+                        <a href="#"><span>IG</span></a>
+                        <a href="#"><span>YT</span></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Inventory</a></li>
+                        <li><a href="#">Financing</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li>123 Auto Street, Car City</li>
+                        <li>Phone: (123) 456-7890</li>
+                        <li>Email: info@autodealer.com</li>
+                        <li>Hours: Mon-Fri 9am-6pm</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 AutoDealer. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 车辆详情模态框 -->
+    <div class="modal" id="carModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="car-detail">
+                <img src="" alt="Car Image" class="car-detail-image" id="modalCarImage">
+                <div class="car-detail-info">
+                    <h2 id="modalCarTitle"></h2>
+                    <div class="car-details" id="modalCarDetails"></div>
+                    <div class="car-price" id="modalCarPrice"></div>
+                    <p id="modalCarDescription"></p>
+                    <div class="car-features" id="modalCarFeatures"></div>
+                    <div class="car-actions">
+                        <a href="#" class="btn btn-primary">Contact Us</a>
+                        <!-- <a href="#" class="btn btn-secondary">Schedule Test Drive</a> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 车辆数据
+        const carsData = [
+            {
+                id: 1,
+                make: "Toyota",
+                model: "Camry",
+                year: 2020,
+                price: 21500,
+                mileage: "25,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                description: "Well-maintained Toyota Camry with low mileage. Features include leather seats, sunroof, and advanced safety systems.",
+                features: ["Leather Seats", "Sunroof", "Backup Camera", "Bluetooth", "Apple CarPlay"]
+            },
+            {
+                id: 2,
+                make: "Honda",
+                model: "CR-V",
+                year: 2019,
+                price: 24500,
+                mileage: "32,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                description: "Spacious and reliable Honda CR-V with all-wheel drive. Perfect for family trips and daily commuting.",
+                features: ["All-Wheel Drive", "Heated Seats", "Navigation System", "Bluetooth", "Backup Camera"]
+            },
+            {
+                id: 3,
+                make: "Ford",
+                model: "F-150",
+                year: 2021,
+                price: 38500,
+                mileage: "18,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                description: "Powerful Ford F-150 with towing package. Like-new condition with many premium features.",
+                features: ["Towing Package", "4WD", "Leather Interior", "Navigation", "Backup Camera"]
+            },
+            {
+                id: 4,
+                make: "BMW",
+                model: "3 Series",
+                year: 2020,
+                price: 34900,
+                mileage: "22,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                description: "Luxury BMW 3 Series with premium package. Excellent performance and comfort.",
+                features: ["Premium Package", "Leather Seats", "Sunroof", "Navigation", "Heated Seats"]
+            },
+            {
+                id: 5,
+                make: "Mercedes-Benz",
+                model: "C-Class",
+                year: 2019,
+                price: 36900,
+                mileage: "28,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                description: "Elegant Mercedes-Benz C-Class with AMG line package. Combines luxury with performance.",
+                features: ["AMG Line", "Panoramic Sunroof", "Premium Sound", "Leather Seats", "Navigation"]
+            },
+            {
+                id: 6,
+                make: "Toyota",
+                model: "RAV4",
+                year: 2021,
+                price: 27900,
+                mileage: "15,000",
+                fuelType: "Hybrid",
+                transmission: "Automatic",
+                image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
+                description: "Fuel-efficient Toyota RAV4 Hybrid with all-wheel drive. Low mileage and excellent condition.",
+                features: ["Hybrid", "All-Wheel Drive", "Apple CarPlay", "Safety Sense", "Backup Camera"]
+            }
+        ];
+
+        // DOM元素
+        const carsContainer = document.getElementById('cars-container');
+        const modal = document.getElementById('carModal');
+        const closeModal = document.querySelector('.close-modal');
+        const modalCarImage = document.getElementById('modalCarImage');
+        const modalCarTitle = document.getElementById('modalCarTitle');
+        const modalCarDetails = document.getElementById('modalCarDetails');
+        const modalCarPrice = document.getElementById('modalCarPrice');
+        const modalCarDescription = document.getElementById('modalCarDescription');
+        const modalCarFeatures = document.getElementById('modalCarFeatures');
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+
+        // 生成车辆卡片
+        function generateCarCards() {
+            carsContainer.innerHTML = '';
+            
+            carsData.forEach(car => {
+                const carCard = document.createElement('div');
+                carCard.className = 'car-card';
+                carCard.innerHTML = `
+                    <img src="${car.image}" alt="${car.make} ${car.model}" class="car-image">
+                    <div class="car-info">
+                        <h3 class="car-title">${car.year} ${car.make} ${car.model}</h3>
+                        <div class="car-details">
+                            <span>${car.mileage} miles</span>
+                            <span>${car.transmission}</span>
+                        </div>
+                        <div class="car-price">$${car.price.toLocaleString()}</div>
+                        <ul class="car-features">
+                            ${car.features.slice(0, 3).map(feature => `<li>${feature}</li>`).join('')}
+                        </ul>
+                        <div class="car-actions">
+                            <button class="btn btn-primary view-details" data-id="${car.id}">View Details</button>
+                            <button class="btn btn-secondary">Contact</button>
+                        </div>
+                    </div>
+                `;
+                carsContainer.appendChild(carCard);
+            });
+
+            // 添加查看详情事件监听
+            document.querySelectorAll('.view-details').forEach(button => {
+                button.addEventListener('click', function() {
+                    const carId = parseInt(this.getAttribute('data-id'));
+                    openCarModal(carId);
+                });
+            });
+        }
+
+        // 打开车辆详情模态框
+        function openCarModal(carId) {
+            const car = carsData.find(c => c.id === carId);
+            if (!car) return;
+
+            modalCarImage.src = car.image;
+            modalCarImage.alt = `${car.make} ${car.model}`;
+            modalCarTitle.textContent = `${car.year} ${car.make} ${car.model}`;
+            modalCarDetails.innerHTML = `
+                <span>${car.mileage} miles</span>
+                <span>${car.transmission}</span>
+                <span>${car.fuelType}</span>
+            `;
+            modalCarPrice.textContent = `$${car.price.toLocaleString()}`;
+            modalCarDescription.textContent = car.description;
+            
+            modalCarFeatures.innerHTML = '';
+            car.features.forEach(feature => {
+                const li = document.createElement('li');
+                li.textContent = feature;
+                modalCarFeatures.appendChild(li);
+            });
+
+            modal.style.display = 'block';
+        }
+
+        // 关闭模态框
+        closeModal.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        // 点击模态框外部关闭
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // 移动端菜单切换
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            generateCarCards();
+        });
+    </script>
+</body>
+</html>
