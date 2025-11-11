@@ -1928,7 +1928,7 @@
                 carCard.innerHTML = `
                     <img src="${car.image}" alt="${car.make} ${car.model}" class="car-image">
                     <div class="car-info">
-                        <h3 class="car-title">${car.year} ${car.make} ${car.model}</h3>
+                        <h3 class="car-title"> ${car.make} ${car.model}</h3>
                         <div class="car-actions">
                             <button class="btn btn-primary view-details" data-id="${car.id}">View Details</button>
                         </div>
@@ -1953,12 +1953,8 @@
 
             modalCarImage.src = car.image;
             modalCarImage.alt = `${car.make} ${car.model}`;
-            modalCarTitle.textContent = `${car.year} ${car.make} ${car.model}`;
-            modalCarDetails.innerHTML = `
-                <span>${car.mileage} miles</span>
-                <span>${car.transmission}</span>
-                <span>${car.fuelType}</span>
-            `;
+            modalCarTitle.textContent = `${car.make} ${car.model}`;
+            modalCarDetails.innerHTML = ``;
             modalCarDescription.textContent = car.description;
             
             modalCarFeatures.innerHTML = '';
