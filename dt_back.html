@@ -1,0 +1,2051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoDealer - Quality Used Cars</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 基础样式 */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* 头部样式 */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--box-shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo span {
+            color: var(--secondary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 1.5rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* 轮播图 */
+        .carousel {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 100%;
+        }
+
+        .carousel-item {
+            min-width: 100%;
+            height: 100%;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            /* object-fit: cover; */
+        }
+
+        .carousel-caption {
+            position: absolute;
+            bottom: 20%;
+            left: 10%;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+            max-width: 500px;
+        }
+
+        .carousel-caption h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .carousel-caption p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .carousel-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+
+        .carousel-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .carousel-indicator.active {
+            background-color: white;
+        }
+
+        /* 服务特点 */
+        .features {
+            padding: 3rem 0;
+            background-color: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        /* 车辆分类 */
+        .categories {
+            padding: 3rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            color: var(--dark-color);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .category-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .category-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .category-name {
+            padding: 1rem;
+            font-weight: bold;
+            color: var(--dark-color);
+        }
+
+        /* 车辆展示 */
+        .cars-section {
+            padding: 2rem 0;
+        }
+
+        .category-section {
+            margin-bottom: 4rem;
+        }
+
+        .category-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .cars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .car-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .car-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .car-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .car-info {
+            padding: 1.5rem;
+        }
+
+        .car-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        .car-details {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .car-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .car-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .car-features li {
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .car-features li:before {
+            content: "•";
+            color: var(--secondary-color);
+            margin-right: 0.5rem;
+        }
+
+        .car-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            padding: 0.7rem 1rem;
+            border: none;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            flex: 1;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid var(--secondary-color);
+            color: var(--secondary-color);
+        }
+
+        /* 业务流程 */
+        .process {
+            padding: 3rem 0;
+            background-color: white;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .process-step {
+            padding: 1.5rem;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .process-step h3 {
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        /* 公司介绍 */
+        .about {
+            padding: 3rem 0;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-image {
+            width: 100%;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            height: 400px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .about-image h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+
+        .about-image p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .about-text h2 {
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+        }
+
+        /* 联系我们 */
+        .contact {
+            padding: 3rem 0;
+            background-color: white;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info h3 {
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        .contact-info ul {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .contact-info li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-info li i {
+            margin-right: 0.5rem;
+            color: var(--secondary-color);
+            width: 20px;
+        }
+
+        .contact-form {
+            background-color: #f5f5f5;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        /* 页脚 */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column a {
+            color: #ddd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: var(--secondary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        /* 模态框 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 2rem auto;
+            border-radius: var(--border-radius);
+            max-width: 800px;
+            width: 90%;
+            position: relative;
+            animation: modalFade 0.3s;
+        }
+
+        @keyframes modalFade {
+            from {opacity: 0; transform: translateY(-20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #777;
+            z-index: 10;
+        }
+
+        .car-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .car-detail-image {
+            width: 100%;
+            border-radius: var(--border-radius) 0 0 var(--border-radius);
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .car-detail-info {
+            padding: 2rem;
+        }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: var(--primary-color);
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                margin: 0;
+                text-align: center;
+                padding: 0.8rem 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .carousel {
+                height: 400px;
+            }
+
+            .carousel-caption h2 {
+                font-size: 1.8rem;
+            }
+
+            .carousel-caption p {
+                font-size: 1rem;
+            }
+
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .car-detail {
+                grid-template-columns: 1fr;
+            }
+
+            .car-detail-image {
+                border-radius: var(--border-radius) var(--border-radius) 0 0;
+                height: 250px;
+            }
+
+            .about-image {
+                height: 300px;
+            }
+
+            .about-image h2 {
+                font-size: 2rem;
+            }
+
+            .about-image p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部 -->
+    <header>
+        <div class="container header-content">
+            <a href="#" class="logo">
+                <div style="width: 40px; height: 40px; background-color: #3498db; border-radius: 5px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">DT</div>
+                <span>DingTai Auto</span>
+            </a>
+            <button class="mobile-menu-btn">☰</button>
+            <ul class="nav-links">
+                <li><a href="#">HOME</a></li>
+                <li><a href="#categories">CATEGORIES</a></li>
+                <li><a href="#about">ABOUT US</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- 轮播图 -->
+    <section class="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="http://www.dtautotrade.com/images/banner/banner1.png?raw=true" alt="Car 1">
+            </div>
+            <div class="carousel-item">
+                <img src="http://www.dtautotrade.com/images/banner/banner2.png?raw=true" alt="Car 2">
+            </div>
+        </div>
+        <div class="carousel-controls">
+            <div class="carousel-indicator active" data-index="0"></div>
+            <div class="carousel-indicator" data-index="1"></div>
+        </div>
+    </section>
+
+    <!-- 服务特点 -->
+    <section class="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-clipboard-check"></i></div>
+                    <h3>Vehicle Certification</h3>
+                    <p>150+ point inspection</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-globe-americas"></i></div>
+                    <h3>Global Shipping</h3>
+                    <p>To 50+ countries worldwide</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-file-contract"></i></div>
+                    <h3>Documentation</h3>
+                    <p>Complete export papers</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-headset"></i></div>
+                    <h3>After-sales Support</h3>
+                    <p>Professional service team</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 车辆分类 -->
+    <section class="categories" id="categories">
+        <div class="container">
+            <h2 class="section-title">Vehicle Categories</h2>
+            <p style="text-align: center; margin-bottom: 2rem;">Explore our wide range of quality used vehicles</p>
+            <div class="categories-grid">
+                <div class="category-card" data-category="sedan">
+                    <img src="http://www.dtautotrade.com/images/sedan/NISSIAN TIIDA 2021model 1.6L CVT.jpg?raw=true" alt="Sedan" class="category-image">
+                    <div class="category-name">Sedan</div>
+                </div>
+                <div class="category-card" data-category="suv">
+                    <img src="http://www.dtautotrade.com/images/suv/SUV_NISSIAN Qashqai 2022model 2.0L CVT XVPrem.jpg?raw=true" alt="SUV" class="category-image">
+                    <div class="category-name">SUV</div>
+                </div>
+                <div class="category-card" data-category="mpv">
+                    <img src="http://www.dtautotrade.com/images/mpv/mpv_DENZA.jpg?raw=true" alt="MPV" class="category-image">
+                    <div class="category-name">MPV</div>
+                </div>
+                <div class="category-card" data-category="electric">
+                    <img src="http://www.dtautotrade.com/images/electric_vehicle/Electric_XIAOMI YU7.jpg?raw=true" alt="Electric Vehicle" class="category-image">
+                    <div class="category-name">Electric Vehicle</div>
+                </div>
+                <div class="category-card" data-category="truck">
+                    <img src="http://www.dtautotrade.com/images/truck/TRUCK_WULING ZHIGUANG EV.jpg?raw=true" alt="Truck" class="category-image">
+                    <div class="category-name">Truck</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 车辆展示 -->
+    <section class="cars-section">
+        <div class="container">
+            <!-- 轿车 -->
+            <div class="category-section" id="sedan">
+                <h3 class="category-title">Sedan</h3>
+                <div class="cars-grid">
+                    <!-- 车辆卡片将通过JavaScript动态生成 -->
+                </div>
+            </div>
+
+            <!-- SUV -->
+            <div class="category-section" id="suv">
+                <h3 class="category-title">SUV</h3>
+                <div class="cars-grid">
+                    <!-- 车辆卡片将通过JavaScript动态生成 -->
+                </div>
+            </div>
+
+            <!-- MPV -->
+            <div class="category-section" id="mpv">
+                <h3 class="category-title">MPV</h3>
+                <div class="cars-grid">
+                    <!-- 车辆卡片将通过JavaScript动态生成 -->
+                </div>
+            </div>
+
+            <!-- 电动车 -->
+            <div class="category-section" id="electric">
+                <h3 class="category-title">Electric Vehicle</h3>
+                <div class="cars-grid">
+                    <!-- 车辆卡片将通过JavaScript动态生成 -->
+                </div>
+            </div>
+
+            <!-- 卡车 -->
+            <div class="category-section" id="truck">
+                <h3 class="category-title">Truck</h3>
+                <div class="cars-grid">
+                    <!-- 车辆卡片将通过JavaScript动态生成 -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 业务流程 -->
+    <section class="process">
+        <div class="container">
+            <h2 class="section-title">Business Process</h2>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3>Select Vehicle</h3>
+                    <p>Browse our inventory and choose your desired vehicle</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3>Inspection & Payment</h3>
+                    <p>Review inspection report and make payment</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3>Documentation</h3>
+                    <p>We handle all export documents and paperwork</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h3>Shipping & Delivery</h3>
+                    <p>Door-to-door delivery to your location</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 公司介绍 -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image">
+                    <h2>Find your perfect car</h2>
+                    <p>Browse our extensive<br>collection of quality vehicles<br>with competitive prices</p>
+                </div>
+                <div class="about-text">
+                    <h2>About DingTai Auto</h2>
+                    <p>Shenzhen Dingtai Automobile Service Co., Ltd. (with its wholly-owned subsidiary: Hong Kong Jinghong Technology Co., Ltd.) has 15 years of experience in automobile sales. Our market experience and industry insight enable us to effectively meet customers' needs.</p>
+                    <p>We specialize in providing comprehensive automobile options covering both Chinese and global brands. Through close cooperation with leading domestic and international brands, we offer customers a diverse range of choices.</p>
+                    <p>Our business is built on the sales of new cars, used cars, and New Energy Vehicles. Meanwhile, we provide customers with flexible purchasing solutions and all-round services, including global logistics and after-sales support.</p>
+                    <p>As the market evolves, we leverage technological innovation and service upgrades to deliver more personalized and efficient solutions to our customers. Our rapid development in overseas markets aims to utilize our brand strength and expertise to serve more overseas clients.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们 -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Get In Touch</h3>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> Phone: <a href="tel:+1234567890">+1 (234) 567-890</a></li>
+                        <li><i class="fas fa-globe"></i> Website: <a href="https://www.dtautotrade.com" target="_blank">www.dtautotrade.com</a></li>
+                    </ul>
+                    <h3>What Can We Do</h3>
+                    <p>We provide comprehensive automobile solutions including vehicle selection, financing options, global shipping, and after-sales support.</p>
+                </div>
+                <div class="contact-form">
+                    <h3>Send Us a Message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>DingTai Auto</h3>
+                    <p>Your trusted partner for quality used vehicles since 2008.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#categories">Categories</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul>
+                        <li><a href="tel:+1234567890">+1 (234) 567-890</a></li>
+                        <li><a href="https://www.dtautotrade.com" target="_blank">www.dtautotrade.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 DingTai Auto. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 车辆详情模态框 -->
+    <div class="modal" id="carModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="car-detail">
+                <img src="" alt="Car Image" class="car-detail-image" id="modalCarImage">
+                <div class="car-detail-info">
+                    <h2 id="modalCarTitle"></h2>
+                    <div class="car-details" id="modalCarDetails"></div>
+                    <div class="car-price" id="modalCarPrice"></div>
+                    <p id="modalCarDescription"></p>
+                    <div class="car-features" id="modalCarFeatures"></div>
+                    <div class="car-actions">
+                        <a href="#contact" class="btn btn-primary">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 扩展车辆数据 - 每个分类8-10辆车
+        const carsData = [
+            // 轿车 (8辆车)
+            {
+                id: 1,
+                category: "sedan",
+                make: "HONDA",
+                model: "Civic",
+                year: 2016,
+                mileage: "25,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/sedan/HONDA  Civic 2016model  180Turbo CVT.webp?raw=true",
+                description: "HONDA  Civic 2016 model  180Turbo CVT",
+                features: []
+            },
+            {
+                id: 2,
+                category: "sedan",
+                make: "HONDA",
+                model: "Accord",
+                year: 2022,
+                mileage: "32,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/sedan/HONDA Accord 2022model 260Turbo luxury.jpg?raw=true",
+                description: "HONDA Accord 2022 model 260 Turbo luxury",
+                features: []
+            },
+            {
+                id: 3,
+                category: "sedan",
+                make: "HONDA",
+                model: "City",
+                year: 2012,
+                mileage: "18,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/sedan/HONDA City 2012model 1.5L.jpg?raw=true",
+                description: "HONDA City 2012 model 1.5L",
+                features: []
+            },
+            {
+                id: 4,
+                category: "sedan",
+                make: "HONDA",
+                model: "Civic ",
+                year: 2022,
+                mileage: "22,000",
+                fuelType: "Hybrid",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/sedan/HONDA Civic 2022model 240Turbo CVT.jpg?raw=true",
+                description: "HONDA Civic 2022 model 240 Turbo CVT",
+                features: []
+            },
+            {
+                id: 5,
+                category: "sedan",
+                make: "classic",
+                model: "Anniversary Edition",
+                year: 2011,
+                mileage: "15,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/sedan/2011 Model 200G classic Anniversary Edition.jpg?raw=true",
+                description: "2011 Model 200G classic Anniversary Edition",
+                features: []
+            },
+            {
+                id: 6,
+                category: "sedan",
+                make: "Luxury",
+                model: "Anniversary Edition",
+                year: 2011,
+                mileage: "28,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/sedan/2011 Model 240G Luxury Anniversary Edition.jpg?raw=true",
+                description: "2011 Model 240G Luxury Anniversary Edition",
+                features: []
+            },
+            {
+                id: 7,
+                category: "sedan",
+                make: "Camry",
+                model: "Anniversary Edition",
+                year: 2016,
+                mileage: "24,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/sedan/Camry 2016 2.0G 10th Anniversary Edition.webp?raw=true",
+                description: "Camry 2016 2.0G 10th Anniversary Edition",
+                features: []
+            },
+            {
+                id: 8,
+                category: "sedan",
+                make: "Camry",
+                model: "luxury gp",
+                year: 2024,
+                mileage: "16,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/sedan/Camry 2024 2.0gp luxury.webp?raw=true",
+                description: "Camry 2024 2.0gp luxury",
+                features: []
+            },
+			{
+			    id: 9,
+			    category: "sedan",
+			    make: "Camry",
+			    model: "luxury vg",
+			    year: 2024,
+			    mileage: "25,000",
+			    fuelType: "Gasoline",
+			    transmission: "Automatic",
+			    image: "http://www.dtautotrade.com/images/sedan/Camry 2024 2.0vg luxury.webp?raw=true",
+			    description: "Camry 2024 2.0gp luxury",
+			    features: []
+			},
+			{
+			    id: 10,
+			    category: "sedan",
+			    make: "LEVIN",
+			    model: "CVT LUXURY",
+			    year: 2021,
+			    mileage: "32,000",
+			    fuelType: "Gasoline",
+			    transmission: "Automatic",
+			    image: "http://www.dtautotrade.com/images/sedan/LEVIN 2021model 185T CVT LUXURY.webp?raw=true",
+			    description: "LEVIN 2021 model 185T CVT LUXURY",
+			    features: []
+			},
+			{
+			    id: 11,
+			    category: "sedan",
+			    make: "LEXUS",
+			    model: "ES",
+			    year: 2026,
+			    mileage: "18,000",
+			    fuelType: "Gasoline",
+			    transmission: "Automatic",
+			    image: "http://www.dtautotrade.com/images/sedan/LEXUS ES 350 2026model.webp?raw=true",
+			    description: "LEXUS ES 350 2026 model",
+			    features: []
+			},
+			{
+			    id: 12,
+			    category: "sedan",
+			    make: "HONDA",
+			    model: "Civic",
+			    year: 2022,
+			    mileage: "22,000",
+			    fuelType: "Hybrid",
+			    transmission: "Automatic",
+			    image: "http://www.dtautotrade.com/images/sedan/HONDA Civic 2022model 240Turbo CVT.jpg?raw=true",
+			    description: "HONDA Civic 2022 model 240Turbo CVT",
+			    features: []
+			},
+			{
+			    id: 13,
+			    category: "sedan",
+			    make: "NISSIAN",
+			    model: "SYLSPY",
+			    year: 2024,
+			    mileage: "15,000",
+			    fuelType: "Gasoline",
+			    transmission: "Automatic",
+			    image: "http://www.dtautotrade.com/images/sedan/NISSIAN SYLSPY 2024model classic 1.6XE CVT.jpg?raw=true",
+			    description: "NISSIAN SYLSPY 2024 model classic 1.6XE CVT",
+			    features: []
+			},
+			{
+			    id: 14,
+			    category: "sedan",
+			    make: "NISSIAN",
+			    model: "TENNA",
+			    year: 2011,
+			    mileage: "28,000",
+			    fuelType: "Gasoline",
+			    transmission: "Automatic",
+			    image: "http://www.dtautotrade.com/images/sedan/NISSIAN TENNA 2011model 2.5L XL.jpg?raw=true",
+			    description: "NISSIAN TENNA 2011 model 2.5L XL",
+			    features: []
+			},
+			{
+			    id: 15,
+			    category: "sedan",
+			    make: "NISSIAN",
+			    model: "TENNA",
+			    year: 2013,
+			    mileage: "24,000",
+			    fuelType: "Gasoline",
+			    transmission: "Automatic",
+			    image: "http://www.dtautotrade.com/images/sedan/NISSIAN TENNA 2013model 2.0L XL.jpg?raw=true",
+			    description: "NISSIAN TENNA 2013 model 2.0L XL",
+			    features: []
+			},
+			{
+			    id: 16,
+			    category: "sedan",
+			    make: "NISSIAN",
+			    model: "TENNA",
+			    year: 2021,
+			    mileage: "16,000",
+			    fuelType: "Gasoline",
+			    transmission: "Automatic",
+			    image: "http://www.dtautotrade.com/images/sedan/NISSIAN TENNA 2021model 2.0L XL.jpg?raw=true",
+			    description: "NISSIAN TENNA 2021 model 2.0L XL",
+			    features: []
+			},
+			{
+			    id: 17,
+			    category: "sedan",
+			    make: "NISSIAN",
+			    model: "TIIDA",
+			    year: 2021,
+			    mileage: "15,000",
+			    fuelType: "Gasoline",
+			    transmission: "Automatic",
+			    image: "http://www.dtautotrade.com/images/sedan/NISSIAN TIIDA 2011model 1.6L CVT.jpg?raw=true",
+			    description: "NISSIAN TIIDA 2011 model 1.6L CVT",
+			    features: []
+			},
+			{
+			    id: 18,
+			    category: "sedan",
+			    make: "NISSIAN",
+			    model: "TIIDA",
+			    year: 2021,
+			    mileage: "28,000",
+			    fuelType: "Gasoline",
+			    transmission: "Automatic",
+			    image: "http://www.dtautotrade.com/images/sedan/NISSIAN TIIDA 2021model 1.6L CVT.jpg?raw=true",
+			    description: "NISSIAN TIIDA 2021 model 1.6L CVT",
+			    features: []
+			},
+			{
+			    id: 19,
+			    category: "sedan",
+			    make: "VOLKSWAGEN",
+			    model: "SIGATER",
+			    year: 2014,
+			    mileage: "24,000",
+			    fuelType: "Gasoline",
+			    transmission: "Automatic",
+			    image: "http://www.dtautotrade.com/images/sedan/VOLKSWAGEN SIGATER 2014model 1.6L.jpg?raw=true",
+			    description: "VOLKSWAGEN SIGATER 2014 model 1.6L",
+			    features: []
+			},
+			{
+			    id: 20,
+			    category: "sedan",
+			    make: "VOLKSWAGEN",
+			    model: "SIGATER",
+			    year: 2021,
+			    mileage: "16,000",
+			    fuelType: "Gasoline",
+			    transmission: "Automatic",
+			    image: "http://www.dtautotrade.com/images/sedan/VOLKSWAGEN SIGATER 2023model 300TSI DSG.jpg?raw=true",
+			    description: "VOLKSWAGEN SIGATER 2023 model 300TSI DSG",
+			    features: []
+			},
+			{
+			    id: 21,
+			    category: "sedan",
+			    make: "Yaris",
+			    model: "2008",
+			    year: 2008,
+			    mileage: "24,000",
+			    fuelType: "Gasoline",
+			    transmission: "Automatic",
+			    image: "http://www.dtautotrade.com/images/sedan/Yaris 2008model 1.6G.jpg?raw=true",
+			    description: "Yaris 2008 model 1.6G",
+			    features: []
+			},
+			{
+			    id: 22,
+			    category: "sedan",
+			    make: "Yaris ",
+			    model: "2019",
+			    year: 2019,
+			    mileage: "16,000",
+			    fuelType: "Gasoline",
+			    transmission: "Automatic",
+			    image: "http://www.dtautotrade.com/images/sedan/Yaris 2019model 1.5 CVT.jpg?raw=true",
+			    description: "Yaris 2019 model 1.5 CVT",
+			    features: []
+			},
+            
+            // SUV (17辆车)
+            {
+                id: 23,
+                category: "suv",
+                make: "FREELANDER",
+                model: "CVT",
+                year: 2022,
+                mileage: "32,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/suv/SUV_FREELANDER 2022 2.0CVT luxury.jpg?raw=true",
+                description: "SUV_FREELANDER 2022 2.0CVT luxury",
+                features: []
+            },
+            {
+                id: 24,
+                category: "suv",
+                make: "HONDA",
+                model: "CVT",
+                year: 2021,
+                mileage: "15,000",
+                fuelType: "Hybrid",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/suv/SUV_HONDA Breeze 2021model 240Turbo CVT.jpg?raw=true",
+                description: "SUV_HONDA Breeze 2021 model 240Turbo CVT",
+                features: []
+            },
+            {
+                id: 25,
+                category: "suv",
+                make: "HONDA",
+                model: "CRV",
+                year: 2021,
+                mileage: "20,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/suv/SUV_HONDA CRV 2021model  240Turbo CVT.jpg?raw=true",
+                description: "SUV_HONDA CRV 2021 model 240Turbo CVT",
+                features: []
+            },
+            {
+                id: 26,
+                category: "suv",
+                make: "HONDA",
+                model: "CVT",
+                year: 2022,
+                mileage: "28,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/suv/SUV_HONDA FIT 2022model 1.5L CVT.jpg?raw=true",
+                description: "SUV_HONDA FIT 2022 model 1.5L CVT",
+                features: []
+            },
+            {
+                id: 27,
+                category: "suv",
+                make: "Honda",
+                model: "XR-V",
+                year: 2019,
+                mileage: "12,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/suv/SUV_Honda XR-V 2019model 220Turbo CVT.jpg?raw=true",
+                description: "SUV_Honda XR-V 2019 model 220Turbo CVT",
+                features: []
+            },
+            {
+                id: 28,
+                category: "suv",
+                make: "LUXUS",
+                model: "RX300",
+                year: 2020,
+                mileage: "18,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/suv/SUV_LUXUS RX300 2020model AWD.jpg?raw=true",
+                description: "SUV_LUXUS RX300 2020 model AWD",
+                features: []
+            },
+            {
+                id: 29,
+                category: "suv",
+                make: "NISSIAN Qashqai",
+                model: "CVT XVPrem",
+                year: 2022,
+                mileage: "14,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/suv/SUV_NISSIAN Qashqai 2022model 2.0L CVT XVPrem.jpg?raw=true",
+                description: "SUV_NISSIAN Qashqai 2022 model 2.0L CVT XVPrem",
+                features: []
+            },
+            {
+                id: 30,
+                category: "suv",
+                make: "NISSIAN",
+                model: "X-Trail",
+                year: 2019,
+                mileage: "22,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/suv/SUV_NISSIAN X-Trail 2019model 2.0L CVT 2WD.webp?raw=true",
+                description: "SUV_NISSIAN X-Trail 2019 model 2.0L CVT 2WD",
+                features: []
+            },
+			{
+			    id: 31,
+			    category: "suv",
+			    make: "RAV4",
+			    model: "luxury",
+			    year: 2011,
+			    mileage: "32,000",
+			    fuelType: "Gasoline",
+			    transmission: "Automatic",
+			    image: "http://www.dtautotrade.com/images/suv/SUV_RAV4 2011model 2.0 luxury.jpg?raw=true",
+			    description: "SUV_RAV4 2011 model 2.0 luxury",
+			    features: []
+			},
+			{
+			    id: 32,
+			    category: "suv",
+			    make: "RAV4",
+			    model: "CVT",
+			    year: 2013,
+			    mileage: "15,000",
+			    fuelType: "Hybrid",
+			    transmission: "Automatic",
+			    image: "http://www.dtautotrade.com/images/suv/SUV_RAV4 2013model 2.0 CVT AWD.jpg?raw=true",
+			    description: "SUV_RAV4 2013 model 2.0 CVT AWD",
+			    features: []
+			},
+			{
+			    id: 33,
+			    category: "suv",
+			    make: "RAV4",
+			    model: "CVT",
+			    year: 2022,
+			    mileage: "20,000",
+			    fuelType: "Gasoline",
+			    transmission: "Automatic",
+			    image: "http://www.dtautotrade.com/images/suv/SUV_RAV4 2022 2.0 CVT.jpg?raw=true",
+			    description: "SUV_RAV4 2022 2.0 CVT",
+			    features: []
+			},
+			{
+			    id: 34,
+			    category: "suv",
+			    make: "HONDA",
+			    model: "CVT",
+			    year: 2022,
+			    mileage: "28,000",
+			    fuelType: "Gasoline",
+			    transmission: "Automatic",
+			    image: "http://www.dtautotrade.com/images/suv/SUV_SKODA Kodiaq.jpg?raw=true",
+			    description: "SUV_SKODA Kodiaq",
+			    features: []
+			},
+			{
+			    id: 35,
+			    category: "suv",
+			    make: "TOYOTA",
+			    model: "Granvia",
+			    year: 2023,
+			    mileage: "12,000",
+			    fuelType: "Gasoline",
+			    transmission: "Automatic",
+			    image: "http://www.dtautotrade.com/images/suv/SUV_TOYOTA Granvia 2023 2.5L.jpg?raw=true",
+			    description: "SUV_TOYOTA Granvia 2023 2.5L",
+			    features: []
+			},
+			{
+			    id: 36,
+			    category: "suv",
+			    make: "TOYOTA",
+			    model: "Wildlander",
+			    year: 2024,
+			    mileage: "18,000",
+			    fuelType: "Gasoline",
+			    transmission: "Automatic",
+			    image: "http://www.dtautotrade.com/images/suv/SUV_TOYOTA Wildlander 2024  2.0CVT.jpg?raw=true",
+			    description: "SUV_TOYOTA Wildlander 2024 2.0 CVT",
+			    features: []
+			},
+			{
+			    id: 37,
+			    category: "suv",
+			    make: "VOLKS WAGEN",
+			    model: "TAYRON",
+			    year: 2022,
+			    mileage: "14,000",
+			    fuelType: "Gasoline",
+			    transmission: "Automatic",
+			    image: "http://www.dtautotrade.com/images/suv/SUV_VOLKS WAGEN TAYRON.jpg?raw=true",
+			    description: "SUV VOLKS WAGEN TAYRON",
+			    features: []
+			},
+			{
+			    id: 38,
+			    category: "suv",
+			    make: "VOLKSWAGEN",
+			    model: "T-ROC",
+			    year: 2018,
+			    mileage: "22,000",
+			    fuelType: "Gasoline",
+			    transmission: "Automatic",
+			    image: "http://www.dtautotrade.com/images/suv/SUV_VOLKSWAGEN TOUAREG 2007model 3.6L.jpg?raw=true",
+			    description: "SUV_VOLKSWAGEN T-ROC 2018 model 280TSI DSG",
+			    features: []
+			},
+			{
+			    id: 39,
+			    category: "suv",
+			    make: "VOLKSWAGEN",
+			    model: "TOUAREG",
+			    year: 2007,
+			    mileage: "22,000",
+			    fuelType: "Gasoline",
+			    transmission: "Automatic",
+			    image: "http://www.dtautotrade.com/images/suv/SUV_VOLKSWAGEN T-ROC 2018model 280TSI DSG.jpg?raw=true",
+			    description: "SUV_VOLKSWAGEN TOUAREG 2007 model 3.6L",
+			    features: []
+			},
+            
+            // MPV (10辆车)
+            {
+                id: 40,
+                category: "mpv",
+                make: "AITO",
+                model: "M9",
+                year: 2020,
+                mileage: "28,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/mpv/mpv_AITO M9.jpg?raw=true",
+                description: "mpv_AITO M9",
+                features: []
+            },
+            {
+                id: 41,
+                category: "mpv",
+                make: "CHUANQI",
+                model: "M8",
+                year: 2019,
+                mileage: "30,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/mpv/mpv_CHUANQI M8.jpg?raw=true",
+                description: "mpv_CHUANQI M8",
+                features: []
+            },
+            {
+                id: 42,
+                category: "mpv",
+                make: "DENZA",
+                model: "DENZA",
+                year: 2021,
+                mileage: "12,000",
+                fuelType: "Hybrid",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/mpv/mpv_DENZA.jpg?raw=true",
+                description: "mpv_DENZA",
+                features: []
+            },
+            {
+                id: 43,
+                category: "mpv",
+                make: "GEELY",
+                model: "LUCKY",
+                year: 2022,
+                mileage: "8,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/mpv/mpv_GEELY LUCKY.jpg?raw=true",
+                description: "mpv_GEELY LUCKY",
+                features: []
+            },
+            {
+                id: 44,
+                category: "mpv",
+                make: "GL8",
+                model: "",
+                year: 2022,
+                mileage: "18,000",
+                fuelType: "Diesel",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/mpv/mpv_GL8.jpg?raw=true",
+                description: "mpv_GL8",
+                features: []
+            },
+            {
+                id: 45,
+                category: "mpv",
+                make: "HONGQI",
+                model: "HQ9",
+                year: 2022,
+                mileage: "35,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/mpv/mpv_HONGQI HQ9 PHEV.jpg?raw=true",
+                description: "mpv_HONGQI HQ9 PHEV",
+                features: []
+            },
+            {
+                id: 46,
+                category: "mpv",
+                make: "RONGWEI",
+                model: "IMAX8",
+                year: 2022,
+                mileage: "25,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/mpv/mpv_RONGWEI IMAX8.jpg?raw=true",
+                description: "mpv_RONGWEI IMAX8",
+                features: []
+            },
+            {
+                id: 47,
+                category: "mpv",
+                make: "VOLVO",
+                model: "EM90",
+                year: 2022,
+                mileage: "42,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/mpv/mpv_VOLVO EM90.jpg?raw=true",
+                description: "mpv_VOLVO EM90",
+                features: []
+            },
+            {
+                id: 48,
+                category: "mpv",
+                make: "WULING",
+                model: "",
+                year: 2022,
+                mileage: "25,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/mpv/mpv_WULING.jpg?raw=true",
+                description: "mpv_WULING",
+                features: []
+            },
+            {
+                id: 49,
+                category: "mpv",
+                make: "XIAOPENG",
+                model: "X9",
+                year: 2022,
+                mileage: "42,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/mpv/mpv_XIAOPENG X9.jpg?raw=true",
+                description: "mpv_XIAOPENG X9",
+                features: []
+            },
+            // 电动车 (8辆车)
+            {
+                id: 50,
+                category: "electric",
+                make: "AITO",
+                model: "M9",
+                year: 2021,
+                mileage: "12,000",
+                fuelType: "Electric",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/electric_vehicle/Electric_AITO M9.jpg?raw=true",
+                description: "Electric_AITO M9",
+                features: []
+            },
+            {
+                id: 51,
+                category: "electric",
+                make: "AUDI",
+                model: "E5",
+                year: 2020,
+                mileage: "15,000",
+                fuelType: "Electric",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/electric_vehicle/Electric_AUDI E5.jpg?raw=true",
+                description: "Electric_AUDI E5",
+                features: []
+            },
+            {
+                id: 52,
+                category: "electric",
+                make: "BYD",
+                model: "Song PLUS",
+                year: 2021,
+                mileage: "10,000",
+                fuelType: "Electric",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/electric_vehicle/Electric_BYD Song PLUS.jpg?raw=true",
+                description: "Electric_BYD Song PLUS",
+                features: []
+            },
+            {
+                id: 53,
+                category: "electric",
+                make: "DONGFENG",
+                model: "VOYHA",
+                year: 2020,
+                mileage: "14,000",
+                fuelType: "Electric",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/electric_vehicle/Electric_DONGFENG VOYHA.jpg?raw=true",
+                description: "Electric_DONGFENG VOYHA",
+                features: []
+            },
+            {
+                id: 54,
+                category: "electric",
+                make: "GEELY Sliver",
+                model: "M9",
+                year: 2021,
+                mileage: "9,000",
+                fuelType: "Electric",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/electric_vehicle/Electric_GEELY Sliver river M9.jpg?raw=true",
+                description: "Electric_GEELY Sliver river M9",
+                features: []
+            },
+            {
+                id: 55,
+                category: "electric",
+                make: "LEAPMOTOR",
+                model: "C16",
+                year: 2020,
+                mileage: "16,000",
+                fuelType: "Electric",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/electric_vehicle/Electric_LEAPMOTOR  C16.jpg?raw=true",
+                description: "Electric_ LEAPMOTOR C16",
+                features: []
+            },
+            {
+                id: 56,
+                category: "electric",
+                make: "LEAPMOTOR",
+                model: "C10",
+                year: 2021,
+                mileage: "11,000",
+                fuelType: "Electric",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/electric_vehicle/Electric_LEAPMOTOR C10.jpg?raw=true",
+                description: "Electric_ LEAPMOTOR C10",
+                features: []
+            },
+            {
+                id: 57,
+                category: "electric",
+                make: "LYNK",
+                model: "CO900",
+                year: 2021,
+                mileage: "8,000",
+                fuelType: "Electric",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/electric_vehicle/Electric_LYNK&CO900.jpg?raw=true",
+                description: "Electric_ LYNK & CO900",
+                features: []
+            },
+            {
+                id: 58,
+                category: "electric",
+                make: "NISSIAN",
+                model: "N7",
+                year: 2020,
+                mileage: "14,000",
+                fuelType: "Electric",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/electric_vehicle/Electric_NISSIAN N7.jpg?raw=true",
+                description: "Electric_ NISSIAN N7",
+                features: []
+            },
+            {
+                id: 59,
+                category: "electric",
+                make: "WULING",
+                model: "BINGO",
+                year: 2021,
+                mileage: "9,000",
+                fuelType: "Electric",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/electric_vehicle/Electric_WULING BINGO.jpg?raw=true",
+                description: "Electric_ WULING BINGO",
+                features: []
+            },
+            {
+                id: 60,
+                category: "electric",
+                make: "XIAOMI",
+                model: "SU7",
+                year: 2020,
+                mileage: "16,000",
+                fuelType: "Electric",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/electric_vehicle/Electric_XIAOMI SU7.jpg?raw=true",
+                description: "Electric_ XIAOMI SU7",
+                features: []
+            },
+            {
+                id: 61,
+                category: "electric",
+                make: "XIAOMI",
+                model: "YU7",
+                year: 2021,
+                mileage: "11,000",
+                fuelType: "Electric",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/electric_vehicle/Electric_XIAOMI YU7.jpg?raw=true",
+                description: "Electric_ XIAOMI YU7",
+                features: []
+            },
+            {
+                id: 62,
+                category: "electric",
+                make: "ZEEKR",
+                model: "X9",
+                year: 2021,
+                mileage: "8,000",
+                fuelType: "Electric",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/electric_vehicle/Electric_ZEEKR  X9.jpg?raw=true",
+                description: "Electric_ ZEEKR X9",
+                features: []
+            },
+            // 卡车 (8辆车)
+            {
+                id: 63,
+                category: "truck",
+                make: "GEELY",
+                model: "YUANCHENG 星享",
+                year: 2021,
+                mileage: "18,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/truck/TRUCK_GEELY_YUANCHENG_V7E%2051.4KW.jpg?raw=true",
+                description: "TRUCK_GEELY YUANCHENG 星享V7E 51.4KW",
+                features: []
+            },
+            {
+                id: 64,
+                category: "truck",
+                make: "RUICHI",
+                model: "EC35II",
+                year: 2020,
+                mileage: "22,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/truck/TRUCK_RUICHI EC35II 38.4KW.jpg?raw=true",
+                description: "TRUCK_RUICHI EC35II 38.4KW",
+                features: []
+            },
+            {
+                id: 65,
+                category: "truck",
+                make: "WULING",
+                model: "EV 50",
+                year: 2021,
+                mileage: "15,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/truck/TRUCK_WULING EV  50.webp?raw=true",
+                description: "TRUCK_WULING EV 50",
+                features: []
+            },
+            {
+                id: 66,
+                category: "truck",
+                make: "WULING",
+                model: "YANGGUANG",
+                year: 2020,
+                mileage: "20,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/truck/TRUCK_WULING YANGGUANG 300km.webp?raw=true",
+                description: "TRUCK_WULING YANGGUANG 300km",
+                features: []
+            },
+            {
+                id: 67,
+                category: "truck",
+                make: "WULING",
+                model: "ZHIGUANG",
+                year: 2021,
+                mileage: "12,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/truck/TRUCK_WULING ZHIGUANG EV.jpg?raw=true",
+                description: "TRUCK_WULING ZHIGUANG EV",
+                features: []
+            },
+            {
+                id: 68,
+                category: "truck",
+                make: "XINYUAN",
+                model: "E3",
+                year: 2020,
+                mileage: "19,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/truck/TRUCK_XINYUAN E3 310km EV.jpg?raw=true",
+                description: "TRUCK_XINYUAN E3 310km EV",
+                features: []
+            },
+            {
+                id: 69,
+                category: "truck",
+                make: "YUANCHENG",
+                model: "E5",
+                year: 2021,
+                mileage: "14,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/truck/TRUCK_YUANCHENG E5.jpg?raw=true",
+                description: "TRUCK_YUANCHENG E5",
+                features: []
+            },
+            {
+                id: 70,
+                category: "truck",
+                make: "YUANCHENG",
+                model: "XINXIANG",
+                year: 2020,
+                mileage: "16,000",
+                fuelType: "Gasoline",
+                transmission: "Automatic",
+                image: "http://www.dtautotrade.com/images/truck/TRUCK_YUANCHENG XINXIANG v6E2022.jpg?raw=true",
+                description: "TRUCK_YUANCHENG XINXIANG v6E2022",
+                features: []
+            }
+        ];
+
+        // DOM元素
+        const carsContainer = document.querySelectorAll('.cars-grid');
+        const modal = document.getElementById('carModal');
+        const closeModal = document.querySelector('.close-modal');
+        const modalCarImage = document.getElementById('modalCarImage');
+        const modalCarTitle = document.getElementById('modalCarTitle');
+        const modalCarDetails = document.getElementById('modalCarDetails');
+        const modalCarPrice = document.getElementById('modalCarPrice');
+        const modalCarDescription = document.getElementById('modalCarDescription');
+        const modalCarFeatures = document.getElementById('modalCarFeatures');
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        const carouselInner = document.querySelector('.carousel-inner');
+        const carouselIndicators = document.querySelectorAll('.carousel-indicator');
+        const categoryCards = document.querySelectorAll('.category-card');
+
+        // 生成车辆卡片
+        function generateCarCards() {
+            // 清空所有车辆网格
+            document.querySelectorAll('.cars-grid').forEach(grid => {
+                grid.innerHTML = '';
+            });
+            
+            // 按分类生成车辆卡片
+            carsData.forEach(car => {
+                const categoryGrid = document.getElementById(car.category).querySelector('.cars-grid');
+                const carCard = document.createElement('div');
+                carCard.className = 'car-card';
+                carCard.innerHTML = `
+                    <img src="${car.image}" alt="${car.make} ${car.model}" class="car-image">
+                    <div class="car-info">
+                        <h3 class="car-title">${car.make} ${car.model}</h3>
+                        <div class="car-actions">
+                            <button class="btn btn-primary view-details" data-id="${car.id}">View Details</button>
+                        </div>
+                    </div>
+                `;
+                categoryGrid.appendChild(carCard);
+            });
+
+            // 添加查看详情事件监听
+            document.querySelectorAll('.view-details').forEach(button => {
+                button.addEventListener('click', function() {
+                    const carId = parseInt(this.getAttribute('data-id'));
+                    openCarModal(carId);
+                });
+            });
+        }
+
+        // 打开车辆详情模态框
+        function openCarModal(carId) {
+            const car = carsData.find(c => c.id === carId);
+            if (!car) return;
+
+            modalCarImage.src = car.image;
+            modalCarImage.alt = `${car.make} ${car.model}`;
+            modalCarTitle.textContent = `${car.make} ${car.model}`;
+            modalCarDescription.textContent = car.description;
+            
+            modalCarFeatures.innerHTML = '';
+            car.features.forEach(feature => {
+                const li = document.createElement('li');
+                li.textContent = feature;
+                modalCarFeatures.appendChild(li);
+            });
+
+            modal.style.display = 'block';
+        }
+
+        // 关闭模态框
+        closeModal.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        // 点击模态框外部关闭
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // 移动端菜单切换
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+        });
+
+        // 轮播图功能
+        let currentSlide = 0;
+        const slideCount = document.querySelectorAll('.carousel-item').length;
+        
+        function showSlide(index) {
+            if (index < 0) {
+                currentSlide = slideCount - 1;
+            } else if (index >= slideCount) {
+                currentSlide = 0;
+            } else {
+                currentSlide = index;
+            }
+            
+            carouselInner.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            // 更新指示器
+            carouselIndicators.forEach((indicator, i) => {
+                if (i === currentSlide) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+        }
+        
+        // 自动轮播
+        let slideInterval = setInterval(() => {
+            showSlide(currentSlide + 1);
+        }, 5000);
+        
+        // 点击指示器切换轮播图
+        carouselIndicators.forEach(indicator => {
+            indicator.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-index'));
+                showSlide(index);
+                // 重置自动轮播计时器
+                clearInterval(slideInterval);
+                slideInterval = setInterval(() => {
+                    showSlide(currentSlide + 1);
+                }, 5000);
+            });
+        });
+        
+        // 分类卡片点击事件
+        categoryCards.forEach(card => {
+            card.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+                document.getElementById(category).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // 联系表单提交
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            generateCarCards();
+            showSlide(0);
+        });
+    </script>
+</body>
+</html>
